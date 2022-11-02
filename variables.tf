@@ -1,6 +1,8 @@
 variable "access_key" {}
 variable "secret_key" {}
 
+variable "index" {}
+
 variable "vpc_name" {}
 variable "subnet_id" {}
 
