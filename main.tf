@@ -158,7 +158,7 @@ resource "time_sleep" "wait_30_seconds" {
 
   destroy_duration = "2m"
 }
-*/
+
   
 resource "null_resource" "set_initial_state" {
   provisioner "local-exec" {
@@ -173,6 +173,7 @@ resource "null_resource" "wait" {
     command = "sleep 60s;"
   }
 }
+*/
 
 resource "ncloud_block_storage" "storage" {
   for_each = var.server_storage
@@ -181,5 +182,9 @@ resource "ncloud_block_storage" "storage" {
   size = each.value.disk_size
   stop_instance_before_detaching = "true"	//
   # description = "${ncloud_server.server[each.value.server_key] - }"
+   provisioner "local-exec" {
+    interpreter = ["bash", "-c"]
+    command = "sleep 60s;"
+  }
   depends_on = [null_resource.wait]
 }
