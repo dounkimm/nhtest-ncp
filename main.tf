@@ -150,12 +150,28 @@ resource "ncloud_public_ip" "public_ip" {
   depends_on = [ncloud_server.server]
 }
 
+/*
 resource "null_resource" "previous" {}
 
 resource "time_sleep" "wait_30_seconds" {
   depends_on = [null_resource.previous]
 
   destroy_duration = "2m"
+}
+*/
+  
+resource "null_resource" "set_initial_state" {
+  provisioner "local-exec" {
+    interpreter = ["bash", "-c"]
+    command = "echo \"0\" > counter"
+  }
+}
+
+resource "null_resource" "wait" {
+  provisioner "local-exec" {
+    interpreter = ["bash", "-c"]
+    command = "while [[ $(cat counter) != \"${var.index}\" ]]; sleep 60s;"
+  }
 }
 
 resource "ncloud_block_storage" "storage" {
