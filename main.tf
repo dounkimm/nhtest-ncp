@@ -170,7 +170,7 @@ resource "null_resource" "set_initial_state" {
 resource "null_resource" "wait" {
   provisioner "local-exec" {
     interpreter = ["bash", "-c"]
-    command = "while [[ $(cat counter) != \"${"test"}\" ]]; sleep 60s;"
+    command = "sleep 60s;"
   }
 }
 
