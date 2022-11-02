@@ -186,5 +186,4 @@ resource "ncloud_block_storage" "storage" {
     interpreter = ["bash", "-c"]
     command = "sleep 60s;"
   }
-  depends_on = [null_resource.wait]
 }
